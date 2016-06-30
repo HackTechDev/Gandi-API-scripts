@@ -43,7 +43,7 @@ for vm in vmList:
 
 
     # Remove the following comment to process in real life
-
+    '''
     # Delete the vm
     print("  vm deletetion in progress")
 
@@ -83,7 +83,7 @@ for vm in vmList:
             with open(logFile, 'a') as file:
                 dateTime = strftime("%Y-%m-%d %H:%M:%S", gmtime())
                 file.write(dateTime + ":" + str(vmCount) + ":" + str(vm_id) + ":" + vm_hostname + "\n")
- 
+    '''
 
     vmCount +=1
    
