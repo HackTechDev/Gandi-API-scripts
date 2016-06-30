@@ -9,7 +9,7 @@ from time import gmtime, strftime
 pp = pprint.PrettyPrinter(indent=4)
 
 api = xmlrpc.client.ServerProxy('https://rpc.gandi.net/xmlrpc/')
-apikey = '<API KEY>'
+apikey = 'API KEY'
 
 
 logVMFile = "VM.log"
@@ -25,6 +25,13 @@ vmList = api.hosting.vm.list(apikey)
 
 
 for vm in vmList:
+    # After 5 vm then stop the whole process
+    if vmCount == 5:
+        print("*****************************************************")
+        print("* End of process                                    *")
+        print("*****************************************************")
+        sys.exit(0)
+
     # Get the vm
     print("*****************************************************")
     vm_id = vm['id']
@@ -33,6 +40,9 @@ for vm in vmList:
 
     vmInfo =  api.hosting.vm.info(apikey, vm_id)
     #pp.pprint(vmInfo)
+
+
+    # Remove the following comment to process in real life
 
     # Delete the vm
     print("  vm deletetion in progress")
@@ -73,6 +83,7 @@ for vm in vmList:
             with open(logFile, 'a') as file:
                 dateTime = strftime("%Y-%m-%d %H:%M:%S", gmtime())
                 file.write(dateTime + ":" + str(vmCount) + ":" + str(vm_id) + ":" + vm_hostname + "\n")
+ 
 
     vmCount +=1
    
